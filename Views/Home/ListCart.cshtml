@@ -1,0 +1,138 @@
+﻿@{
+    ViewData["Title"] = "ListCart";
+}
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    input[type="number"] {
+        width: 50px;
+        text-align: center;
+    }
+
+    .updateCart,
+    #orderNow {
+        display: inline-block;
+        padding: 8px;
+        text-decoration: none;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-top: 5px;
+    }
+
+    .updateCart {
+        background-color: #007bff;
+    }
+
+    #orderNow {
+        background-color: #28a745;
+        margin-left: 5px;
+    }
+
+    a[asp-action="deleteCart"] {
+        display: inline-block;
+        padding: 8px;
+        text-decoration: none;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-left: 5px;
+        background-color: #dc3545; 
+    }
+
+        .updateCart:hover,
+        #orderNow:hover,
+        a[asp-action="deleteCart"]:hover {
+            opacity: 0.8;
+        }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<div class="List-cart">
+    <table>
+        <tr>
+            <th>No</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        @{
+            int counter = 0;
+            foreach (var item in ViewBag.carts)
+            {
+                string txt_class = "quantity_" + item.Product.Id;
+                decimal total = item.Product.Price * item.Quantity;
+                counter++;
+                <tr>
+                    <td>@counter</td>
+                    <td><img src="@item.Product.ImageUrl" width="120" height="200" /></td>
+                    <td>@item.Product.Name</td>
+                    <td><input type="number" class="@txt_class" value="@item.Quantity" min="1" /></td>
+                    <td>$@item.Product.Price</td>
+                    <td>$@total</td>
+                    <td><a href="" data-id="@item.Product.Id" class="updateCart">Update</a></td>
+                    <td><a asp-controller="Home" asp-action="deleteCart" asp-route-id="@item.Product.Id">Delete</a></td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+<div>
+    <a id="orderNow" href="@Url.Action("CreateOrder", "Orders")" class="btn btn-success">Order Now</a>
+</div>
+
+<script>
+    $(document).ready(function () {
+        console.log('Script executed');
+        $(".updateCart").click(function (event) {
+            event.preventDefault();
+            var quantity = $(".quantity_" + $(this).attr("data-id")).val();
+            console.log(quantity);
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("updateCart","Home")",
+                data: {
+                    id: $(this).attr("data-id"),
+                    quantity: quantity
+                },
+                success: function (result) {
+                    window.location.href = '@Url.Action("ListCart","Home")';
+                }
+            });
+        });
+
+        $("#orderNow").click(function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "/Orders/CreateOrder",
+                success: function () {
+                    window.location.href = '/Home/SuccessfullyOrder';
+                },
+                error: function () {
+                    alert('Error creating order');
+                }
+            });
+        });
+    });
+</script>

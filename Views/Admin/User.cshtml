@@ -1,0 +1,79 @@
+﻿@model List<Microsoft.AspNetCore.Identity.IdentityUser>
+@{
+    ViewData["Title"] = "User";
+}
+
+<style>
+    h1 {
+        color: #333;
+    }
+
+    .table-responsive {
+        margin-top: 20px;
+    }
+
+    .table-bordered {
+        border: 1px solid #ddd;
+    }
+
+    a:hover {
+        background-color: #007BFF;
+        color: #fff;
+    }
+
+    .thead-dark th {
+        background-color: #343a40;
+        color: #fff;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: #333;
+    }
+
+        .nav-link:hover {
+            color: #007bff;
+        }
+
+    p {
+        color: #333;
+    }
+</style>
+
+<h1>User</h1>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">User ID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Id</td>
+                        <td>@user.UserName</td>
+                        <td>@user.Email</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>No users found.</p>
+}
+<div>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Back to main page</a>
+</div>

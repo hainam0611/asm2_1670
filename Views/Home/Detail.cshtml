@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Detail";
+}
+
+<style>
+    .detail-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        color: #333;
+    }
+
+    p {
+        color: #666;
+    }
+
+    .btn {
+        text-decoration: none;
+        padding: 10px 20px;
+        margin-top: 10px;
+        display: inline-block;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-success {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+</style>
+
+<div class="detail-container">
+    <img src="@Model.ImageUrl" width="250px" height="100%" />
+    <h2>@Model.Name</h2>
+    <p>Description: @Model.Description</p>
+    @*<p>Category: @Model.Category.Name</p>*@
+    <p>Price: $@Model.Price</p>
+
+    @if (User.IsInRole("MANAGER") || User.IsInRole("CUSTOMER"))
+    {
+        <a asp-action="AddCart" asp-route-id="@Model.Id" class="btn btn-primary">Add to Cart</a>
+    }
+    <a asp-action="ListCart" class="btn btn-success">View Cart</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to Index</a>
+</div>

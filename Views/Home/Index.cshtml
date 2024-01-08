@@ -1,0 +1,122 @@
+﻿@model List<ASM2.Models.Book>
+
+<style>
+    .card {
+        height: 100%;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s;
+    }
+
+        .card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+    .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    .card-text {
+        height: 80px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .book-container {
+        margin-top: 20px;
+    }
+    .search-container,
+    .filter-container {
+        margin-bottom: 20px;
+    }
+
+        .search-container input,
+        .filter-container select {
+            padding: 8px;
+            margin-right: 8px;
+        }
+
+        .search-container button,
+        .filter-container button {
+            padding: 8px 16px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .search-container button:hover,
+            .filter-container button:hover {
+                background-color: #218838;
+            }
+</style>
+<div class="text-center">
+    <h1 class="display-4">Welcome to FPTBook</h1>
+    <p>You need to find any book, we have it.</p>
+</div>
+<div class="container">
+    <div class="search-container">
+        <form method="get" action="@Url.Action("Index", "Home")">
+            <input type="text" name="searchQuery" placeholder="Search for books...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <div class="filter-container">
+        <form method="get" action="@Url.Action("Index", "Home")">
+            <label for="categoryFilter">Filter by Category:</label>
+            <select id="categoryFilter" name="categoryFilter">
+                <option value="">All Categories</option>
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+            <button type="submit">Apply Filter</button>
+        </form>
+    </div>
+    <div class="row book-container">
+        @foreach (var book in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="@book.ImageUrl" class="card-img-top" alt="Book Image">
+                    <div class="card-body">
+                        <h5 class="card-title">@book.Name</h5>
+                        <p class="card-text">@book.Description</p>
+                        <p class="card-text"><strong>Price:</strong> $@book.Price</p>
+                        <a href="@Url.Action("Detail", "Home", new { id = book.Id })" class="btn btn-primary">Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    function applyFilter() {
+    }
+</script>

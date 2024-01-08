@@ -1,0 +1,68 @@
+﻿@model List<Order>
+@{
+    ViewData["Title"] = "Order";
+}
+
+<style>
+    h1 {
+        color: #333;
+    }
+
+    .table-responsive {
+        margin-top: 20px;
+    }
+
+    .table-bordered {
+        border: 1px solid #ddd;
+    }
+
+    a:hover {
+        background-color: #007BFF;
+        color: #fff;
+    }
+
+    .thead-dark th {
+        background-color: #343a40;
+        color: #fff;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .nav-link {
+        text-decoration: none;
+        color: #333;
+    }
+
+        .nav-link:hover {
+            color: #007bff;
+        }
+</style>
+
+<h1>Order</h1>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">User ID</th>
+                <th scope="col">Order Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.UserId</td>
+                    <td>@order.OrderDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Back to main page</a>
+</div>

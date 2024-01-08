@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    a {
+        text-decoration: none;
+        margin: 0 10px;
+        padding: 8px 16px;
+        border: 2px solid #e44d26; 
+        color: #e44d26; 
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        display: inline-block;
+    }
+
+        a:hover {
+            background-color: #e44d26; 
+            color: #fff;
+        }
+</style>
+
+<a asp-controller="Categories" asp-action="Index">Categories</a>
+<a asp-controller="Books" asp-action="Index">Books</a>
+<a asp-action="User">Users</a>
+<a asp-action="Order">Orders</a>

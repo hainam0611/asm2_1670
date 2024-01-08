@@ -1,0 +1,93 @@
+﻿@model ASM2.Models.Book
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+    h1 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    h4 {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    dl.row {
+        margin: 0;
+        padding: 0;
+    }
+
+    dt.col-sm-2,
+    dd.col-sm-10 {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: 1px solid #007bff;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+</style>
+
+<h1>Details</h1>
+
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@Model.ImageUrl" width="250px" height="100%" />
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <!-- Navigation links (if needed) -->
+    <a class="btn btn-primary" asp-area="" asp-controller="Books" asp-action="Index">Back to list</a>
+</div>
